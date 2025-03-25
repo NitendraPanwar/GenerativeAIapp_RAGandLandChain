@@ -5,6 +5,13 @@ from ibm_watsonx_ai import Credentials
 from langchain_ibm import WatsonxLLM
 import gradio as gr
 
+import os
+
+#os.environ['WATSONX_APIKEY'] = 'replace IBM API key'
+#os.environ['WATSONX_PROJECTID'] = 'replace IBM project ID'
+
+
+
 # Model and project settings
 model_id = 'mistralai/mixtral-8x7b-instruct-v01' # Directly specifying the model
 
@@ -14,12 +21,12 @@ parameters = {
     GenParams.TEMPERATURE: 0.5, # This randomness or creativity of the model's responses
 }
 
-project_id = "skills-network"
+project_id = os.environ['WATSONX_PROJECTID']
 
 # Wrap up the model into WatsonxLLM inference
 watsonx_llm = WatsonxLLM(
     model_id=model_id,
-    url="https://us-south.ml.cloud.ibm.com",
+    url="https://eu-de.ml.cloud.ibm.com",
     project_id=project_id,
     params=parameters,
 )
